@@ -1,13 +1,15 @@
-async function logMovies() {
-  const response = await fetch("https://api.spoonacular.com/recipes/complexSearch?apiKey=0cacfa8a8c0845328430f3573171b10e");
-  const movies = await response.json();
-  console.log(movies);
-}
+import {Link, Route, Routes} from "react-router-dom"
+import HomePage from "./pages/HomePage";
+import Logo from "./Favicon-FattenMeUp.png";
 
 function App(){
-  logMovies();
+  
   return(
-    <h1>test</h1>
+      <>
+      <h1>Fatten Me Up</h1>
+      <HomePage />
+      </>
   )
 }
+
 export default App;
