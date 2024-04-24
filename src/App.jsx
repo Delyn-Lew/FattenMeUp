@@ -1,6 +1,6 @@
 import {Link, Route, Routes} from "react-router-dom"
 import HomePage from "./pages/HomePage";
-import Logo from "./Favicon-FattenMeUp.png";
+import RandomRecipes from "./components/RandomRecipes";
 
 function App(){
   
@@ -8,6 +8,7 @@ function App(){
       <>
       <h1>Fatten Me Up</h1>
       <HomePage />
+      <RandomRecipes />
       </>
   )
 }
