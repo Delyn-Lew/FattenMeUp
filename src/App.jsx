@@ -1,6 +1,9 @@
 import {Route, Routes} from "react-router-dom"
 import HomePage from "./pages/HomePage";
-
+import RecipePage from "./pages/RecipePage"
+import ShoppingPage from "./pages/ShoppingPage";
+import BookmarkPage from "./pages/BookmarkPage";
+import Nav from "./pages/Nav";
 
 function App(){
   
@@ -8,10 +11,10 @@ function App(){
       <>
       <Nav />
         <Routes>
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/home/Recipe" element={<RecipePage />} />
-          <Route path="/home/Shopping" element={<ShoppingPage />} />
-          <Route path="/home/Bookmark" element={<BookmarkPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/recipes/:id" element={<RecipePage />} />
+          <Route path="/Shopping" element={<ShoppingPage />} />
+          <Route path="/Bookmark" element={<BookmarkPage />} />
         </Routes>
       </>
   )
