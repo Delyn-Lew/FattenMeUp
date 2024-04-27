@@ -1,57 +1,111 @@
 import { useParams } from "react-router-dom";
 import { useRecipeContext } from "../RecipeContext";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 function RecipePage() {
   const { id } = useParams();
+  const [recipe, setRecipe] = useState();
   const { selectedRecipe, setSelectedRecipe } = useRecipeContext();
   const [getIngredients, setGetIngredients] = useState([]);
-  const [recipeInstructions, setRecipeInstructions] = useState([]);
-  // if(!selectedRecipe) {
-  //     return <div>Loading ...</div>;
-  // }
+  const [recipeInstructions, setRecipeInstructions] = useState(
+    selectedRecipe?.analyzedInstructions?.[0]?.steps || []
+  );
+
   useEffect(() => {
     async function fetchRecipeDetails() {
-      const url = `https://api.spoonacular.com/recipes/${id}/information?apiKey=5999701673d14ab1a278363ed6aa6035`;
-      const response = await fetch(url);
-      const recipeDetails = await response.json();
-      setSelectedRecipe(recipeDetails); //{analyzedInstructions:[{steps:[{number:x,step:xxx}]}]}
-      setRecipeInstructions(recipeDetails.analyzedInstructions[0].steps);
-      console.log(
-        "instructions: ",
-        recipeDetails.analyzedInstructions[0].steps
-      );
-      setGetIngredients(recipeDetails.extendedIngredients);
+      const url = `https://api.spoonacular.com/recipes/${id}/information?apiKey=0a78ddca97da4e0ca93436020ac7857d`;
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Network response was not OK");
+        }
+        const recipeDetails = await response.json();
+        setRecipe(recipeDetails);
+        setSelectedRecipe(recipeDetails);
+        setRecipeInstructions(recipeDetails.analyzedInstructions[0].steps);
+        setGetIngredients(recipeDetails.extendedIngredients);
+      } catch (error) {
+        console.error("There was a problem with your fetch operation:", error);
+      }
     }
     fetchRecipeDetails();
   }, [id]);
 
-  //   const instructionsSteps = selectedRecipe.analyzedInstructions.steps;
+  useEffect(() => {
+    async function fetchRecipeInstructions() {
+      const url = `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=0a78ddca97da4e0ca93436020ac7857d`;
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Network response was not OK");
+        }
+        const analInstruct = await response.json();
+        setRecipeInstructions(analInstruct[0].steps);
+      } catch (error) {
+        console.error("There was a problem with your fetch operation:", error);
+      }
+    }
+    fetchRecipeInstructions();
+  }, [id]);
+
+  const instructionsSteps = selectedRecipe?.analyzedInstructions?.[0]?.steps;
+
+  async function sendIngredients() {
+    const url = "https://api.airtable.com/v0/appiyNczr8JyHLJph/Projects";
+    const ingredients = recipe.extendedIngredients.map((ingredient) => ({
+      name: ingredient.name,
+      amount: ingredient.amount,
+      unit: ingredient.unit,
+    }));
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6`,
+      },
+      body: JSON.stringify({
+        fields: {
+          RecipeId: "1",
+          SpoonId: "123",
+          Ingredients: JSON.stringify(ingredients),
+        },
+      }),
+    });
+    if (!response.ok) {
+      console.error(
+        "There was a problem with your fetch operation:",
+        response.statusText
+      );
+    }
+  }
+
+  function handleClick() {
+    sendIngredients();
+  }
 
   return (
     <>
-      <h2>{selectedRecipe?.title}</h2>
-      <img src={selectedRecipe?.image} alt={selectedRecipe?.title} />
-      <p>Ready in: {selectedRecipe?.readyInMinutes} minutes</p>
-      <p>Servings: {selectedRecipe?.servings}</p>
-      <h2>Instructions</h2>
+      <button onClick={handleClick}>Add to Shopping List</button>
+      <h2>{recipe?.title}</h2>
+      <img src={recipe?.image} alt={recipe?.title} />
+      <p>Ready in: {recipe?.readyInMinutes} minutes</p>
+      <p>Servings: {recipe?.servings}</p>
+      <h2>Instructions:</h2>
       <ol>
-        {recipeInstructions?.map((instruction, index) => (
+        {instructionsSteps?.map((step, index) => (
           <div key={index}>
-            <li> {instruction.step}</li>
+            <li> {step.step}</li>
           </div>
         ))}
       </ol>
-      <h2>Ingredients</h2>
-      {getIngredients?.map((getIngredient, index) => (
+      <h2>Ingredients:</h2>
+      {recipe?.extendedIngredients.map((ingredient, index) => (
         <div key={index}>
           <ul>
-            <li>{getIngredient.original}</li>
+            <li>{ingredient.original}</li>
           </ul>
         </div>
       ))}
-      <Link to={`/Shopping`}>Go to Shopping List!</Link>
     </>
   );
 }
