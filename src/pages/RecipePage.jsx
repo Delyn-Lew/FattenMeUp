@@ -10,6 +10,7 @@ function RecipePage() {
   const [recipeInstructions, setRecipeInstructions] = useState(
     selectedRecipe?.analyzedInstructions?.[0]?.steps || []
   );
+  const [nextRecipeId, setNextRecipeId] = useState(1);
 
   useEffect(() => {
     async function fetchRecipeDetails() {
@@ -51,31 +52,37 @@ function RecipePage() {
   const instructionsSteps = selectedRecipe?.analyzedInstructions?.[0]?.steps;
 
   async function sendIngredients() {
-    const url = "https://api.airtable.com/v0/appiyNczr8JyHLJph/Projects";
-    const ingredients = recipe.extendedIngredients.map((ingredient) => ({
-      name: ingredient.name,
-      amount: ingredient.amount,
-      unit: ingredient.unit,
-    }));
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6`,
-      },
-      body: JSON.stringify({
-        fields: {
-          RecipeId: "1",
-          SpoonId: "123",
-          Ingredients: JSON.stringify(ingredients),
+    try {
+      const url = "https://api.airtable.com/v0/appiyNczr8JyHLJph/Projects";
+      const ingredients = recipe.extendedIngredients.map((ingredient) => ({
+        name: ingredient.name,
+        amount: ingredient.amount,
+        unit: ingredient.unit,
+      }));
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6`,
         },
-      }),
-    });
-    if (!response.ok) {
-      console.error(
-        "There was a problem with your fetch operation:",
-        response.statusText
-      );
+        body: JSON.stringify({
+          fields: {
+            RecipeId: nextRecipeId.toString(),
+            SpoonId: id,
+            Ingredients: JSON.stringify(ingredients),
+          },
+        }),
+      });
+      if (!response.ok) {
+        console.error(
+          "There was a problem with your fetch operation:",
+          response.statusText
+        );
+      } else {
+        setNextRecipeId(nextRecipeId + 1);
+      }
+    } catch (error) {
+      console.log("Error");
     }
   }
 
