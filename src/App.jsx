@@ -1,23 +1,23 @@
-import {Route, Routes} from "react-router-dom"
+import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import RecipePage from "./pages/RecipePage"
+import RecipePage from "./pages/RecipePage";
 import ShoppingPage from "./pages/ShoppingPage";
 import BookmarkPage from "./pages/BookmarkPage";
 import Nav from "./pages/Nav";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function App(){
-  
-  return(
-      <>
+function App() {
+  return (
+    <>
       <Nav />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/recipes/:id" element={<RecipePage />} />
-          <Route path="/Shopping" element={<ShoppingPage />} />
-          <Route path="/Bookmark" element={<BookmarkPage />} />
-        </Routes>
-      </>
-  )
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/recipes/:id" element={<RecipePage />} />
+        <Route path="/Shopping" element={<ShoppingPage />} />
+        <Route path="/Bookmark" element={<BookmarkPage />} />
+      </Routes>
+    </>
+  );
 }
 
 export default App;
