@@ -20,39 +20,46 @@ function ShoppingPage() {
     fetchShoppingList();
   }, []);
 
-  async function handleCheckboxChange(index, ingredientId) {
+  async function handleCheckboxChange(listIndex, ingredientId) {
     const updatedShoppingLists = [...shoppingLists];
-    const ingredientToUpdate = updatedShoppingLists[
-      index
-    ].fields.Ingredients.find((ingredient) => ingredient.id === ingredientId);
-    ingredientToUpdate.purchase = !ingredientToUpdate.purchase;
-
-    const response = await fetch(`${url}/${updatedShoppingLists[index].id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6`,
-      },
-      body: JSON.stringify({
-        fields: {
-          Ingredients: JSON.stringify(
-            updatedShoppingLists[index].fields.Ingredients
-          ),
-        },
-      }),
-    });
-
-    if (!response.ok) {
-      console.error("Error updating shopping list");
-      return;
-    }
-
-    const updatedShoppingList = await response.json();
-    setShoppingLists(
-      shoppingLists.map((list) =>
-        list.id === updatedShoppingList.id ? updatedShoppingList : list
-      )
+    const listToUpdate = updatedShoppingLists[listIndex];
+    const ingredients = JSON.parse(listToUpdate.fields.Ingredients);
+    const ingredientToUpdate = Object.values(ingredients).find(
+      (ingredient) => ingredient.id === ingredientId
     );
+    // updatedShoppingLists[index].fields.Ingredients.find((ingredient) => ingredient.id === ingredientId);
+
+    if (ingredientToUpdate) {
+      ingredientToUpdate.purchase = !ingredientToUpdate.purchase;
+
+      const response = await fetch(`${url}/${updatedShoppingLists[index].id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6`,
+        },
+        body: JSON.stringify({
+          fields: {
+            Ingredients: JSON.stringify(
+              [...listToUpdate.fields.Ingredients]
+              //   updatedShoppingLists[index].fields.Ingredients
+            ),
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        console.error("Error updating shopping list");
+        return;
+      }
+
+      const updatedShoppingList = await response.json();
+      setShoppingLists(
+        shoppingLists.map((list) =>
+          list.id === updatedShoppingList.id ? updatedShoppingList : list
+        )
+      );
+    }
   }
 
   //   async function handleClick() {
@@ -83,18 +90,21 @@ function ShoppingPage() {
     <div>
       {shoppingLists.map((shoppingList, num) => (
         <div key={shoppingList.id}>
-          <p>{shoppingList.fields.RecipeId}</p>
+          {/* <p>{shoppingList.fields.RecipeId}</p> */}
           <p>{shoppingList.fields.SpoonId}</p>
-          <ul key={num}>
+          <ul>
             {JSON.parse(shoppingList.fields.Ingredients).map(
               (ingredient, i) => (
-                <li key={ingredient.id}>
+                <li key={`${shoppingList.id}-${ingredient.id || i}`}>
                   <input
                     type="checkbox"
                     checked={ingredient.purchase}
-                    onChange={() => handleCheckboxChange(index, ingredient.id)}
+                    onChange={() => handleCheckboxChange(num, ingredient.id)}
                   />
-                  ({ingredient.id}) {ingredient.name}
+                  {/* {ingredient.id}  */}
+                  <label htmlFor={`{$shoppingList.id}-${ingredient.id || i}`}>
+                    {ingredient.name}
+                  </label>
                   {/* {ingredient.purchase ? "Purchased" : "Go buy"} */}
                 </li>
               )
