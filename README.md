@@ -1,10 +1,10 @@
 # Fatten Me Up
 
-[Head over to Fatten Me Up] (fatten-me-up.vercel.app)
+[Head over to Fatten Me Up](fatten-me-up.vercel.app)
 
-[Wireframe - Figma] (https://www.figma.com/file/qUC7Kg4BfIEcBdJvK68o4p/Fatten-Me-Up-(Project-2)?type=whiteboard&node-id=0%3A1&t=YzZLnIU0ItNZfzkh-1)
+[Wireframe - Figma](<https://www.figma.com/file/qUC7Kg4BfIEcBdJvK68o4p/Fatten-Me-Up-(Project-2)?type=whiteboard&node-id=0%3A1&t=YzZLnIU0ItNZfzkh-1>)
 
-[Trello Board] (https://trello.com/invite/b/DtODau3m/ATTI92c49c5575eca9b4c1573541ee1bfb3bE13FF91B/fatten-me-up)
+[Trello Board](https://trello.com/invite/b/DtODau3m/ATTI92c49c5575eca9b4c1573541ee1bfb3bE13FF91B/fatten-me-up)
 
 ## Introduction
 
