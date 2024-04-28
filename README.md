@@ -16,6 +16,8 @@ Ever felt like you are at a lost of what to eat and have no inspirations on dish
 <img src = "Wireframe-FattenMeUp.png" height = "350px">
 </p>
 
+## Trello Board
+
 ## Technologies Used
 
 ## Next Steps
