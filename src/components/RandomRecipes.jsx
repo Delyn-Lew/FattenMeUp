@@ -9,7 +9,7 @@ function RandomRecipes() {
   const [shouldFetch, setShouldFetch] = useState(true);
 
   async function loadRandomRecipe() {
-    const url = `https://api.spoonacular.com/recipes/random?number=1&apiKey=f5824885223a40bb9e3063b1401cf94f`;
+    const url = `https://api.spoonacular.com/recipes/random?number=1&apiKey=8646d0b1985a49999f8cc40d8af4a704`;
     const response = await fetch(url);
     const randomRecipes = await response.json();
     setRandomRecipes(randomRecipes.recipes);

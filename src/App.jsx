@@ -4,7 +4,6 @@ import RecipePage from "./pages/RecipePage";
 import ShoppingPage from "./pages/ShoppingPage";
 import BookmarkPage from "./pages/BookmarkPage";
 import Nav from "./pages/Nav";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (

@@ -14,7 +14,7 @@ function RecipePage() {
 
   useEffect(() => {
     async function fetchRecipeDetails() {
-      const url = `https://api.spoonacular.com/recipes/${id}/information?apiKey=0a78ddca97da4e0ca93436020ac7857d`;
+      const url = `https://api.spoonacular.com/recipes/${id}/information?apiKey=8646d0b1985a49999f8cc40d8af4a704`;
       try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -34,7 +34,7 @@ function RecipePage() {
 
   useEffect(() => {
     async function fetchRecipeInstructions() {
-      const url = `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=0a78ddca97da4e0ca93436020ac7857d`;
+      const url = `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=8646d0b1985a49999f8cc40d8af4a704`;
       try {
         const response = await fetch(url);
         if (!response.ok) {
