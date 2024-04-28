@@ -13,7 +13,7 @@ Ever felt like you are at a lost of what to eat and have no inspirations on dish
 ## Wireframe
 
 <p align="center">
-<img src = "Wireframe-FattenMeUp(v2).png" height = "350px">
+<img src = "WireFrame-FattenMeUp(v2).png" height = "350px">
 </p>
 
 ## Trello Board
