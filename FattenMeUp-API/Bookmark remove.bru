@@ -1,0 +1,15 @@
+meta {
+  name: Bookmark remove
+  type: http
+  seq: 9
+}
+
+get {
+  url: https://api.airtable.com/v0/appiyNczr8JyHLJph/Bookmark?records[]=${RecordId}
+  body: none
+  auth: none
+}
+
+query {
+  records[]: ${RecordId}
+}

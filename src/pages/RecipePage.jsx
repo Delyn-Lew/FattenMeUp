@@ -120,6 +120,7 @@ function RecipePage() {
       console.log("Error bookmarking the recipe. Please try again.");
     }
   };
+
   return (
     <>
       <button onClick={addBookmark}>Add to Bookmark</button>

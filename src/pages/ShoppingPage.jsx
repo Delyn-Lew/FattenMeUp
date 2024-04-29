@@ -5,7 +5,7 @@ function ShoppingPage() {
   const url = "https://api.airtable.com/v0/appiyNczr8JyHLJph/ShoppingPage";
 
   // Example POST method implementation:
-  https: useEffect(() => {
+  useEffect(() => {
     async function fetchShoppingList() {
       const response = await fetch(url, {
         method: "GET", // *GET, POST, PUT, DELETE, etc.
@@ -50,21 +50,6 @@ function ShoppingPage() {
           },
           body: JSON.stringify(updateBody),
         });
-        // const response = await fetch(`${url}/${listToUpdate.id}`, {
-        //   method: "PUT",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     Authorization: `Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6`,
-        //   },
-        //   body: JSON.stringify({
-        //     fields: {
-        //       Ingredients: JSON.stringify(
-        //         [...listToUpdate.fields.Ingredients]
-        //         //   updatedShoppingLists[index].fields.Ingredients
-        //       ),
-        //     },
-        //   }),
-        // });
 
         if (!response.ok) {
           console.error("Error updating shopping list");
@@ -86,12 +71,12 @@ function ShoppingPage() {
   return (
     <div>
       {shoppingLists.map((shoppingList, num) => (
-        <div key={shoppingList.id}>
+        <div key={shoppingList.RecipeId}>
           <p>{shoppingList.fields.SpoonId}</p>
           <ul>
             {JSON.parse(shoppingList.fields.Ingredients).map(
               (ingredient, i) => (
-                <li key={`${shoppingList.id}-${ingredient.id || i}`}>
+                <li key={shoppingList.RecipeId}>
                   <input
                     type="checkbox"
                     checked={ingredient.purchase}
