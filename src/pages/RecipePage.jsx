@@ -97,6 +97,7 @@ function RecipePage() {
 
   return (
     <>
+      <br />
       <RecipeDetails recipe={recipe} />
       <RecipeInstructions instructionsSteps={recipeInstructions} />
       <RecipeIngredients recipe={recipe} />
