@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecipeContext } from "../RecipeContext";
+import { API_KEY } from "../key";
 
 function RandomRecipes() {
   const [randomRecipes, setRandomRecipes] = useState([]);
@@ -9,7 +10,7 @@ function RandomRecipes() {
   const [shouldFetch, setShouldFetch] = useState(true);
 
   async function loadRandomRecipe() {
-    const url = `https://api.spoonacular.com/recipes/random?number=1&apiKey=8646d0b1985a49999f8cc40d8af4a704`;
+    const url = `https://api.spoonacular.com/recipes/random?number=1&apiKey=${API_KEY}`;
     const response = await fetch(url);
     const randomRecipes = await response.json();
     setRandomRecipes(randomRecipes.recipes);

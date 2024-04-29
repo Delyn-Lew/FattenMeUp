@@ -1,6 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useRecipeContext } from "../RecipeContext";
 import { useEffect, useState } from "react";
+import { API_KEY } from "../key";
+
+import RecipeDetails from "../components/RecipeDetails";
+import RecipeInstructions from "../components/RecipeInstructions";
+import RecipeIngredients from "../components/RecipeIngredients";
 
 function RecipePage() {
   const { id } = useParams();
@@ -14,7 +19,7 @@ function RecipePage() {
 
   useEffect(() => {
     async function fetchRecipeDetails() {
-      const url = `https://api.spoonacular.com/recipes/${id}/information?apiKey=8646d0b1985a49999f8cc40d8af4a704`;
+      const url = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`;
       try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -34,7 +39,7 @@ function RecipePage() {
 
   useEffect(() => {
     async function fetchRecipeInstructions() {
-      const url = `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=8646d0b1985a49999f8cc40d8af4a704`;
+      const url = `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=${API_KEY}`;
       try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -53,7 +58,7 @@ function RecipePage() {
 
   async function sendIngredients() {
     try {
-      const url = "https://api.airtable.com/v0/appiyNczr8JyHLJph/Projects";
+      const url = "https://api.airtable.com/v0/appiyNczr8JyHLJph/ShoppingPage";
       const ingredients = recipe.extendedIngredients.map((ingredient) => ({
         name: ingredient.name,
         amount: ingredient.amount,
@@ -86,33 +91,15 @@ function RecipePage() {
     }
   }
 
-  function handleClick() {
-    sendIngredients();
-  }
+  // function handleClick() {
+  //   sendIngredients();
+  // }
 
   return (
     <>
-      <button onClick={handleClick}>Add to Shopping List</button>
-      <h2>{recipe?.title}</h2>
-      <img src={recipe?.image} alt={recipe?.title} />
-      <p>Ready in: {recipe?.readyInMinutes} minutes</p>
-      <p>Servings: {recipe?.servings}</p>
-      <h2>Instructions:</h2>
-      <ol>
-        {instructionsSteps?.map((step, index) => (
-          <div key={index}>
-            <li> {step.step}</li>
-          </div>
-        ))}
-      </ol>
-      <h2>Ingredients:</h2>
-      {recipe?.extendedIngredients.map((ingredient, index) => (
-        <div key={index}>
-          <ul>
-            <li>{ingredient.original}</li>
-          </ul>
-        </div>
-      ))}
+      <RecipeDetails recipe={recipe} />
+      <RecipeInstructions instructionsSteps={recipeInstructions} />
+      <RecipeIngredients recipe={recipe} />
     </>
   );
 }

@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 
 function ShoppingPage() {
   const [shoppingLists, setShoppingLists] = useState([]);
-  const url = "https://api.airtable.com/v0/appiyNczr8JyHLJph/Projects";
+  const url = "https://api.airtable.com/v0/appiyNczr8JyHLJph/ShoppingPage";
+
   // Example POST method implementation:
-  useEffect(() => {
+  https: useEffect(() => {
     async function fetchShoppingList() {
       const response = await fetch(url, {
         method: "GET", // *GET, POST, PUT, DELETE, etc.
@@ -32,7 +33,7 @@ function ShoppingPage() {
     if (ingredientToUpdate) {
       ingredientToUpdate.purchase = !ingredientToUpdate.purchase;
 
-      const response = await fetch(`${url}/${updatedShoppingLists[index].id}`, {
+      const response = await fetch(`${url}/${listToUpdate.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -62,30 +63,6 @@ function ShoppingPage() {
     }
   }
 
-  //   async function handleClick() {
-  //     const response = await fetch(url, {
-  //       method: "POST", // *GET, POST, PUT, DELETE, etc.
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6`,
-  //       },
-  //       body: JSON.stringify({
-  //         records: [
-  //           {
-  //             fields: {
-  //               RecipeId: "1",
-  //               SpoonId: "123",
-  //               Ingredients: JSON.stringify([
-  //                 { id: 1, name: "fish", purchase: false },
-  //               ]), // Convert Ingredients array to JSON string
-  //             },
-  //           },
-  //         ],
-  //       }),
-  //     });
-  //     const data = await response.json();
-  //     console.log(data);
-  //   }
   return (
     <div>
       {shoppingLists.map((shoppingList, num) => (
