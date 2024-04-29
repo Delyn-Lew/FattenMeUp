@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { API_KEY } from "../key";
-import { Link } from "react-router-dom";
 
 function SearchBar() {
   const [searchBar, setSearchBar] = useState("");
@@ -38,7 +37,7 @@ function SearchBar() {
   };
 
   return (
-    <form>
+    <form className="searchForm">
       <br />
       <input
         type="search"
@@ -52,11 +51,7 @@ function SearchBar() {
       <br />
       {status && <p>{status}</p>}
       <br />
-      {recipeImage && (
-        <Link to={`/recipes/${recipeImage.id}`}>
-          <img src={recipeImage} alt="Recipe" />
-        </Link>
-      )}
+      {recipeImage && <img src={recipeImage} alt="Recipe" />}
     </form>
   );
 }

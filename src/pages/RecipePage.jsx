@@ -10,7 +10,7 @@ import RecipeIngredients from "../components/RecipeIngredients";
 function RecipePage() {
   const { id } = useParams();
   const [recipe, setRecipe] = useState();
-  // const { selectedRecipe, setSelectedRecipe } = useRecipeContext();
+  const { selectedRecipe, setSelectedRecipe } = useRecipeContext();
   const [getIngredients, setGetIngredients] = useState([]);
   const [recipeInstructions, setRecipeInstructions] = useState(
     selectedRecipe?.analyzedInstructions?.[0]?.steps || []
@@ -91,13 +91,13 @@ function RecipePage() {
     }
   }
 
-  // function handleClick() {
-  //   sendIngredients();
-  // }
+  function handleClick() {
+    sendIngredients();
+  }
 
   return (
     <>
-      <br />
+      <button onClick={handleClick}>Add to Shopping List</button>
       <RecipeDetails recipe={recipe} />
       <RecipeInstructions instructionsSteps={recipeInstructions} />
       <RecipeIngredients recipe={recipe} />

@@ -3,8 +3,8 @@ function RecipeInstructions({ instructionsSteps }) {
     <>
       <h2>Instructions:</h2>
       <ol>
-        {instructionsSteps?.map((step, index) => (
-          <div key={index}>
+        {instructionsSteps?.map((step, stepNumber) => (
+          <div key={stepNumber}>
             <li> {step.step}</li>
           </div>
         ))}
