@@ -30,4 +30,8 @@ As a user,
 
 ## Technologies Used
 
+- JavaScript(React and Fetch API)
+- HTML and CSS
+- Powered by Spoonacular API and Airtable API
+
 ## Next Steps

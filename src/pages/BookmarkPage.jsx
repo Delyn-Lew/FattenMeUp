@@ -1,4 +1,5 @@
 function BookmarkPage() {
+  const urlBookmark = "https://api.airtable.com/v0/appiyNczr8JyHLJph/Bookmark";
   async function fetchBookmarks() {
     const response = await fetch(url, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.

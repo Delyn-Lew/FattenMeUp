@@ -13,6 +13,7 @@ function Nav() {
       <Link to="/Bookmark" style={{ marginRight: "1rem" }}>
         Bookmarks
       </Link>
+      <br />
     </>
   );
 }
