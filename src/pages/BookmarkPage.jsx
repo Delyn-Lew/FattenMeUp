@@ -61,7 +61,7 @@ function BookmarkPage() {
         {bookmarkList.map((recipe) => (
           <div key={recipe?.fields?.RecordId}>
             <h3>{recipe?.fields?.TitleName}</h3>
-            <Link to={`/recipes/${recipe?.fields?.Spoonid}`}>
+            <Link to={`/recipes/${recipe?.fields?.SpoonId}`}>
               <img src={recipe?.fields?.Image} alt="Recipe" />
             </Link>
             <button onClick={() => handleRemove(recipe?.fields?.RecordId)}>

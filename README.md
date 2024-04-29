@@ -20,13 +20,25 @@ As a user,
 
 - I would like a random recipe generated for days when I have no keywords inspiration
 
+## Screenshots
+
+<p align="center"> Home page
+<img src = "HomePage.png" height = "350px">
+</p>
+
+<p align="center"> Recipe page
+<img src = "RecipePage.png" height = "350px">
+</p>
+
+<p align="center"> Bookmark page
+<img src = "BookmarkPage.png" height = "350px">
+</p>
+
 ## Wireframe
 
 <p align="center">
 <img src = "WireFrame-FattenMeUp(v2).png" height = "350px">
 </p>
-
-## Trello Board
 
 ## Technologies Used
 
@@ -38,3 +50,7 @@ As a user,
 
 - Make the checklist working
 - Able to change the serving size and add to shopping list with the exact quantity needed
+
+## Challenges
+
+- Spend alot of time researching on how to do a checklist with the details stored in airtable
