@@ -35,7 +35,7 @@ function BookmarkPage() {
       <div>
         {bookmarkList.map((recipe) => (
           <div key={recipe?.fields?.RecordId}>
-            <p>{recipe?.fields?.TitleName}</p>
+            <h3>{recipe?.fields?.TitleName}</h3>
             <Link to={`/recipes/${recipe?.fields?.Spoonid}`}>
               <img src={recipe?.fields?.Image} alt="Recipe" />
             </Link>
