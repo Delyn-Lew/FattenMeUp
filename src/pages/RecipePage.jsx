@@ -6,7 +6,6 @@ import { API_KEY } from "../key";
 import RecipeDetails from "../components/RecipeDetails";
 import RecipeInstructions from "../components/RecipeInstructions";
 import RecipeIngredients from "../components/RecipeIngredients";
-import RecipeBookmarks from "../components/RecipeBookmarks";
 
 function RecipePage() {
   const { id } = useParams();
@@ -95,10 +94,35 @@ function RecipePage() {
   function handleClick() {
     sendIngredients();
   }
-
+  const addBookmark = async () => {
+    try {
+      const url = "https://api.airtable.com/v0/appiyNczr8JyHLJph/Bookmark";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6",
+        },
+        body: JSON.stringify({
+          fields: {
+            SpoonId: id,
+          },
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not OK");
+      }
+      // Handle successful bookmarking
+      console.log("Recipe bookmarked successfully!");
+    } catch (error) {
+      console.error("Error adding bookmark", error);
+      console.log("Error bookmarking the recipe. Please try again.");
+    }
+  };
   return (
     <>
-      <RecipeBookmarks />
+      <button onClick={addBookmark}>Add to Bookmark</button>
       <button onClick={handleClick}>Add to Shopping List</button>
       <RecipeDetails recipe={recipe} />
       <RecipeInstructions instructionsSteps={recipeInstructions} />
@@ -106,5 +130,4 @@ function RecipePage() {
     </>
   );
 }
-
 export default RecipePage;
