@@ -54,8 +54,6 @@ function RecipePage() {
     fetchRecipeInstructions();
   }, [id]);
 
-  const instructionsSteps = selectedRecipe?.analyzedInstructions?.[0]?.steps;
-
   async function sendIngredients() {
     try {
       const url = "https://api.airtable.com/v0/appiyNczr8JyHLJph/ShoppingPage";
@@ -107,6 +105,8 @@ function RecipePage() {
         body: JSON.stringify({
           fields: {
             SpoonId: id,
+            TitleName: recipe.title,
+            Image: recipe.image,
           },
         }),
       });

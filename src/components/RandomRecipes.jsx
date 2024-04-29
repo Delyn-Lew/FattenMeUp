@@ -5,7 +5,6 @@ import { API_KEY } from "../key";
 
 function RandomRecipes() {
   const [randomRecipes, setRandomRecipes] = useState([]);
-  const { setSelectedRecipe } = useRecipeContext();
   const [shouldFetch, setShouldFetch] = useState(true);
 
   async function loadRandomRecipe() {
