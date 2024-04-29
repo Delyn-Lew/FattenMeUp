@@ -14,9 +14,12 @@ function ShoppingPage() {
           Authorization: `Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6`,
         },
       });
-      const shoppingLists = await response.json();
-      setShoppingLists(shoppingLists.records);
-      //   console.log(shoppingLists);
+      if (response.ok) {
+        const shoppingLists = await response.json();
+        setShoppingLists(shoppingLists.records);
+      } else {
+        console.log("Error fetching shopping lists");
+      }
     }
     fetchShoppingList();
   }, []);
@@ -28,38 +31,55 @@ function ShoppingPage() {
     const ingredientToUpdate = Object.values(ingredients).find(
       (ingredient) => ingredient.id === ingredientId
     );
-    // updatedShoppingLists[index].fields.Ingredients.find((ingredient) => ingredient.id === ingredientId);
 
     if (ingredientToUpdate) {
       ingredientToUpdate.purchase = !ingredientToUpdate.purchase;
-
-      const response = await fetch(`${url}/${listToUpdate.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6`,
+      const updateUrl = `${url}/${listToUpdate.id}`;
+      const updateBody = {
+        fields: {
+          Ingredients: JSON.stringify(ingredients),
         },
-        body: JSON.stringify({
-          fields: {
-            Ingredients: JSON.stringify(
-              [...listToUpdate.fields.Ingredients]
-              //   updatedShoppingLists[index].fields.Ingredients
-            ),
+      };
+
+      try {
+        const response = await fetch(updateUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6`,
           },
-        }),
-      });
+          body: JSON.stringify(updateBody),
+        });
+        // const response = await fetch(`${url}/${listToUpdate.id}`, {
+        //   method: "PUT",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     Authorization: `Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6`,
+        //   },
+        //   body: JSON.stringify({
+        //     fields: {
+        //       Ingredients: JSON.stringify(
+        //         [...listToUpdate.fields.Ingredients]
+        //         //   updatedShoppingLists[index].fields.Ingredients
+        //       ),
+        //     },
+        //   }),
+        // });
 
-      if (!response.ok) {
-        console.error("Error updating shopping list");
-        return;
+        if (!response.ok) {
+          console.error("Error updating shopping list");
+          return;
+        }
+
+        const updatedShoppingList = await response.json();
+        setShoppingLists(
+          shoppingLists.map((list) =>
+            list.id === updatedShoppingList.id ? updatedShoppingList : list
+          )
+        );
+      } catch (error) {
+        console.error("Error updating shopping list!", error);
       }
-
-      const updatedShoppingList = await response.json();
-      setShoppingLists(
-        shoppingLists.map((list) =>
-          list.id === updatedShoppingList.id ? updatedShoppingList : list
-        )
-      );
     }
   }
 
@@ -67,7 +87,6 @@ function ShoppingPage() {
     <div>
       {shoppingLists.map((shoppingList, num) => (
         <div key={shoppingList.id}>
-          {/* <p>{shoppingList.fields.RecipeId}</p> */}
           <p>{shoppingList.fields.SpoonId}</p>
           <ul>
             {JSON.parse(shoppingList.fields.Ingredients).map(
@@ -78,32 +97,16 @@ function ShoppingPage() {
                     checked={ingredient.purchase}
                     onChange={() => handleCheckboxChange(num, ingredient.id)}
                   />
-                  {/* {ingredient.id}  */}
                   <label htmlFor={`{$shoppingList.id}-${ingredient.id || i}`}>
                     {ingredient.name}
                   </label>
-                  {/* {ingredient.purchase ? "Purchased" : "Go buy"} */}
                 </li>
               )
             )}
           </ul>
         </div>
       ))}
-      {/* <button onClick={handleClick}>Click Me!</button> */}
     </div>
   );
 }
 export default ShoppingPage;
-
-{
-  /* // const A =  <ul>
-// {JSON.parse(shoppingList.fields.Ingredients[0]).map(
-//   (ingredient, i) => (
-//     <li key={i}>
-//       ({ingredient.id}) {ingredient.name.original}
-//       {/* {ingredient.purchase ? "Purchased" : "Go buy"} */
-}
-//     </li>
-//   )
-// )}
-// </ul> */}

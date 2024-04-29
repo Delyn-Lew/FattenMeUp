@@ -6,7 +6,6 @@ import { API_KEY } from "../key";
 function RandomRecipes() {
   const [randomRecipes, setRandomRecipes] = useState([]);
   const { setSelectedRecipe } = useRecipeContext();
-  // const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [shouldFetch, setShouldFetch] = useState(true);
 
   async function loadRandomRecipe() {
@@ -31,18 +30,6 @@ function RandomRecipes() {
     loadRandomRecipe();
   }
 
-  // function handleRecipeClick(recipeId){
-  // async function fetchRecipeDetails(){
-  //     const url = `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=6ff0206e17fd47b783fabeee52a35974`;
-  //     const response = await fetch(url);
-  //     const recipeDetails = await response.json();
-  //     console.log(recipeDetails);
-  //     setSelectedRecipe(recipeDetails);
-  // }
-  // fetchRecipeDetails();
-  // console.log(recipeId);
-  // }
-
   return (
     <>
       <button onClick={handleRandom}>Inspire me!</button>
@@ -51,11 +38,7 @@ function RandomRecipes() {
           <div key={recipe.id}>
             <h2>{recipe.title}</h2>
             <Link to={`/recipes/${recipe.id}`}>
-              <img
-                src={recipe.image}
-                alt={recipe.title}
-                // onClick={()=> handleRecipeClick(recipe.id)}
-              />
+              <img src={recipe.image} alt={recipe.title} />
             </Link>
           </div>
         ))}
