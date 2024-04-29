@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { API_KEY } from "../key";
+import { Link } from "react-router-dom";
 
 function SearchBar() {
   const [searchBar, setSearchBar] = useState("");
@@ -23,8 +24,7 @@ function SearchBar() {
         if (data.results.length > 0) {
           const recipe = data.results[0];
           console.log(recipe);
-          const { image } = recipe;
-          setRecipeImage(image);
+          setRecipeImage(recipe);
         } else {
           console.log("Recipes not found!");
         }
@@ -67,21 +67,18 @@ function SearchBar() {
         onChange={(evt) => setSearchBar(evt.target.value)}
       />
       {/* anon function takes in no name ()=>{} */}
-      <button
-        type="submit"
-        onClick={(evt) => {
-          evt.preventDefault();
-          handleSearch(evt);
-          handleClick(searchBar);
-        }}
-      >
+      <button type="submit" onClick={handleSearch}>
         Search
       </button>
       {loading && <p>Hold on... cooking up the best recipes!</p>}
       <br />
       {status && <p>{status}</p>}
       <br />
-      {recipeImage && <img src={recipeImage} alt="Recipe" />}
+      {recipeImage && (
+        <Link to={`/recipes/${recipeImage.id}`}>
+          <img src={recipeImage.image} alt="Recipe" />
+        </Link>
+      )}
     </form>
   );
 }

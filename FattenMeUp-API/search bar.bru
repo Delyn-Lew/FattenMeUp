@@ -1,0 +1,19 @@
+meta {
+  name: search bar
+  type: http
+  seq: 8
+}
+
+get {
+  url: https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&instructionsRequired=true&number=1&query=${searchValue}
+  body: none
+  auth: none
+}
+
+query {
+  apiKey: ${API_KEY}
+  addRecipeInformation: true
+  instructionsRequired: true
+  number: 1
+  query: ${searchValue}
+}
