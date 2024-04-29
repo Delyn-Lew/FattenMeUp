@@ -34,4 +34,7 @@ As a user,
 - HTML and CSS
 - Powered by Spoonacular API and Airtable API
 
-## Next Steps
+## Icebox
+
+- Make the checklist working
+- Able to change the serving size and add to shopping list with the exact quantity needed
