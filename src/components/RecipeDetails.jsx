@@ -1,7 +1,4 @@
 function RecipeDetails({ recipe }) {
-  // function handleClick() {
-  //   sendIngredients();
-  // }
   return (
     <>
       <br />

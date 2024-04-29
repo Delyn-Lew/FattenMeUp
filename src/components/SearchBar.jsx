@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { API_KEY } from "../key";
 
 function SearchBar() {
@@ -6,10 +6,11 @@ function SearchBar() {
   const [recipeImage, setRecipeImage] = useState("");
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [shouldFetch, setShouldFetch] = useState(true);
 
+  const searchValue = searchBar.trim(); //to remove trailing whitespace
   const handleSearch = async (evt) => {
     evt.preventDefault();
-    const searchValue = searchBar.trim(); //to remove trailing whitespace
 
     if (searchValue) {
       setLoading(true);
@@ -35,6 +36,27 @@ function SearchBar() {
       }
     }
   };
+  console.log(searchValue);
+
+  async function handleClick() {
+    const searchValue = searchBar.trim();
+    const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&instructionsRequired=true&number=1&query=${searchValue}`;
+    const response = await fetch(url);
+    const searchedRecipe = await response.json();
+    setRecipeImage(searchedRecipe.results[0].image);
+  }
+  console.log(recipeImage);
+  //   useEffect(() => {
+  //     let active = true;
+
+  //     if (shouldFetch) {
+  //       handleClick();
+  //       setShouldFetch(false);
+  //     }
+  //     return () => {
+  //       active = false;
+  //     };
+  //   }, [shouldFetch]);
 
   return (
     <form className="searchForm">
@@ -44,7 +66,15 @@ function SearchBar() {
         placeholder="Search here"
         onChange={(evt) => setSearchBar(evt.target.value)}
       />
-      <button type="submit" onClick={handleSearch}>
+      {/* anon function takes in no name ()=>{} */}
+      <button
+        type="submit"
+        onClick={(evt) => {
+          evt.preventDefault();
+          handleSearch(evt);
+          handleClick(searchBar);
+        }}
+      >
         Search
       </button>
       {loading && <p>Hold on... cooking up the best recipes!</p>}

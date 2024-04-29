@@ -6,6 +6,7 @@ import { API_KEY } from "../key";
 import RecipeDetails from "../components/RecipeDetails";
 import RecipeInstructions from "../components/RecipeInstructions";
 import RecipeIngredients from "../components/RecipeIngredients";
+import RecipeBookmarks from "../components/RecipeBookmarks";
 
 function RecipePage() {
   const { id } = useParams();
@@ -97,6 +98,7 @@ function RecipePage() {
 
   return (
     <>
+      <RecipeBookmarks />
       <button onClick={handleClick}>Add to Shopping List</button>
       <RecipeDetails recipe={recipe} />
       <RecipeInstructions instructionsSteps={recipeInstructions} />
