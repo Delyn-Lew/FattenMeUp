@@ -43,7 +43,7 @@ function ShoppingPage() {
 
       try {
         const response = await fetch(updateUrl, {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6`,
@@ -70,24 +70,23 @@ function ShoppingPage() {
 
   return (
     <div>
-      {shoppingLists.map((shoppingList, num) => (
-        <div key={shoppingList.RecipeId}>
-          <p>{shoppingList.fields.SpoonId}</p>
+      {shoppingLists?.records?.map((shoppingList, num) => (
+        <div key={shoppingList.id}>
+          <p>{shoppingList?.fields?.SpoonId}</p>
           <ul>
-            {JSON.parse(shoppingList.fields.Ingredients).map(
-              (ingredient, i) => (
-                <li key={shoppingList.RecipeId}>
-                  <input
-                    type="checkbox"
-                    checked={ingredient.purchase}
-                    onChange={() => handleCheckboxChange(num, ingredient.id)}
-                  />
-                  <label htmlFor={`{$shoppingList.id}-${ingredient.id || i}`}>
-                    {ingredient.name}
-                  </label>
-                </li>
-              )
-            )}
+            {shoppingList?.fields?.Ingredients?.map((ingredient, i) => (
+              <li key={shoppingList?.RecipeId}>
+                <input
+                  id={`${shoppingList.id}-${ingredient?.id || i}`}
+                  type="checkbox"
+                  checked={ingredient?.purchase}
+                  onChange={() => handleCheckboxChange(num, ingredient.id)}
+                />
+                <label htmlFor={`${shoppingList.id}-${ingredient?.id || i}`}>
+                  {ingredient?.name}
+                </label>
+              </li>
+            ))}
           </ul>
         </div>
       ))}

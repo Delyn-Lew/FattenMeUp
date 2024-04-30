@@ -55,13 +55,13 @@ function RecipePage() {
   }, [id]);
 
   async function sendIngredients() {
+    const url = "https://api.airtable.com/v0/appiyNczr8JyHLJph/ShoppingPage";
+    const ingredients = recipe.extendedIngredients.map((ingredient) => ({
+      name: ingredient.name,
+      amount: ingredient.amount,
+      unit: ingredient.unit,
+    }));
     try {
-      const url = "https://api.airtable.com/v0/appiyNczr8JyHLJph/ShoppingPage";
-      const ingredients = recipe.extendedIngredients.map((ingredient) => ({
-        name: ingredient.name,
-        amount: ingredient.amount,
-        unit: ingredient.unit,
-      }));
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -69,11 +69,14 @@ function RecipePage() {
           Authorization: `Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6`,
         },
         body: JSON.stringify({
-          fields: {
-            RecipeId: nextRecipeId.toString(),
-            SpoonId: id,
-            Ingredients: JSON.stringify(ingredients),
-          },
+          records: [
+            {
+              fields: {
+                SpoonId: id,
+                Ingredients: JSON.stringify(ingredients),
+              },
+            },
+          ],
         }),
       });
       if (!response.ok) {
@@ -105,8 +108,8 @@ function RecipePage() {
         body: JSON.stringify({
           fields: {
             SpoonId: id,
-            TitleName: recipe.title,
-            Image: recipe.image,
+            TitleName: recipe?.title,
+            Image: recipe?.image,
           },
         }),
       });
