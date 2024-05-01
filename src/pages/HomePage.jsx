@@ -1,16 +1,13 @@
 import SearchBar from "../components/SearchBar";
 import RandomRecipes from "../components/RandomRecipes";
-import { RecipeProvider } from "../RecipeContext";
 
 function HomePage() {
-    return(
-        <>
-        <SearchBar />
-        <RecipeProvider>
-        <RandomRecipes />
-        </RecipeProvider>
-        </>
-    )
+  return (
+    <>
+      <SearchBar />
+      <RandomRecipes />
+    </>
+  );
 }
 
 export default HomePage;

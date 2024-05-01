@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { useRecipeContext } from "../RecipeContext";
 import { useEffect, useState } from "react";
 import { API_KEY } from "../key";
 

@@ -7,7 +7,7 @@ function SearchBar() {
   const [recipeImage, setRecipeImage] = useState("");
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [shouldFetch, setShouldFetch] = useState(true);
+  // const [shouldFetch, setShouldFetch] = useState(true);
 
   const searchValue = searchBar.trim(); //to remove trailing whitespace
   const handleSearch = async (evt) => {
