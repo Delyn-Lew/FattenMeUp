@@ -9,7 +9,7 @@ import RecipeIngredients from "../components/RecipeIngredients";
 function RecipePage() {
   const { id } = useParams();
   const [recipe, setRecipe] = useState();
-  const { selectedRecipe, setSelectedRecipe } = useRecipeContext();
+  const { selectedRecipe, setSelectedRecipe } = useState([]);
   const [getIngredients, setGetIngredients] = useState([]);
   const [recipeInstructions, setRecipeInstructions] = useState(
     selectedRecipe?.analyzedInstructions?.[0]?.steps || []
@@ -26,7 +26,6 @@ function RecipePage() {
         }
         const recipeDetails = await response.json();
         setRecipe(recipeDetails);
-        setSelectedRecipe(recipeDetails);
         setRecipeInstructions(recipeDetails.analyzedInstructions[0].steps);
         setGetIngredients(recipeDetails.extendedIngredients);
       } catch (error) {
