@@ -70,23 +70,25 @@ function ShoppingPage() {
 
   return (
     <div>
-      {shoppingLists?.records?.map((shoppingList, num) => (
+      {shoppingLists?.map((shoppingList, num) => (
         <div key={shoppingList.id}>
           <p>{shoppingList?.fields?.SpoonId}</p>
           <ul>
-            {shoppingList?.fields?.Ingredients?.map((ingredient, i) => (
-              <li key={shoppingList?.RecipeId}>
-                <input
-                  id={`${shoppingList.id}-${ingredient?.id || i}`}
-                  type="checkbox"
-                  checked={ingredient?.purchase}
-                  onChange={() => handleCheckboxChange(num, ingredient.id)}
-                />
-                <label htmlFor={`${shoppingList.id}-${ingredient?.id || i}`}>
-                  {ingredient?.name}
-                </label>
-              </li>
-            ))}
+            {JSON.parse(shoppingList?.fields?.Ingredients)?.map(
+              (ingredient, i) => (
+                <li key={shoppingList?.RecipeId}>
+                  <input
+                    id={`${shoppingList.id}-${ingredient?.id || i}`}
+                    type="checkbox"
+                    checked={ingredient?.purchase}
+                    onChange={() => handleCheckboxChange(num, ingredient.id)}
+                  />
+                  <label htmlFor={`${shoppingList.id}-${ingredient?.id || i}`}>
+                    {ingredient?.name}
+                  </label>
+                </li>
+              )
+            )}
           </ul>
         </div>
       ))}
