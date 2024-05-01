@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useRecipeContext } from "../RecipeContext";
 import { API_KEY } from "../key";
 
 function RandomRecipes() {

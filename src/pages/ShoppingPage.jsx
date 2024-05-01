@@ -72,7 +72,7 @@ function ShoppingPage() {
     <div>
       {shoppingLists?.map((shoppingList, num) => (
         <div key={shoppingList.id}>
-          <p>{shoppingList?.fields?.SpoonId}</p>
+          <p>{shoppingList?.fields?.Name}</p>
           <ul>
             {JSON.parse(shoppingList?.fields?.Ingredients)?.map(
               (ingredient, i) => (

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import RemoveBookmark from "../components/RemoveBookmark";
 
 function BookmarkPage() {
   const [bookmarkList, setBookmarkList] = useState([]);
@@ -64,9 +65,10 @@ function BookmarkPage() {
             <Link to={`/recipes/${recipe?.fields?.SpoonId}`}>
               <img src={recipe?.fields?.Image} alt="Recipe" />
             </Link>
-            <button onClick={() => handleRemove(recipe?.fields?.RecordId)}>
-              Remove from Bookmark
-            </button>
+            <RemoveBookmark
+              onRemove={handleRemove}
+              RecordId={recipe?.fields?.RecordId}
+            />
           </div>
         ))}
       </div>

@@ -73,6 +73,7 @@ function RecipePage() {
             {
               fields: {
                 SpoonId: id,
+                Name: recipe.title,
                 Ingredients: JSON.stringify(ingredients),
               },
             },
