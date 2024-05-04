@@ -4,11 +4,10 @@ function ShoppingPage() {
   const [shoppingLists, setShoppingLists] = useState([]);
   const url = "https://api.airtable.com/v0/appiyNczr8JyHLJph/ShoppingPage";
 
-  // Example POST method implementation:
   useEffect(() => {
     async function fetchShoppingList() {
       const response = await fetch(url, {
-        method: "GET", // *GET, POST, PUT, DELETE, etc.
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6`,
@@ -16,7 +15,23 @@ function ShoppingPage() {
       });
       if (response.ok) {
         const shoppingLists = await response.json();
-        setShoppingLists(shoppingLists.records);
+        const formattedShoppingLists = shoppingLists.records.map((list) => {
+          const formattedIngredients = JSON.parse(list.fields.Ingredients).map(
+            (ingredient, index) => ({
+              ...ingredient,
+              Purchase: false,
+              id: index,
+            })
+          );
+          return {
+            ...list,
+            fields: {
+              ...list.fields,
+              Ingredients: JSON.stringify(formattedIngredients),
+            },
+          };
+        });
+        setShoppingLists(formattedShoppingLists);
       } else {
         console.log("Error fetching shopping lists");
       }
@@ -28,12 +43,16 @@ function ShoppingPage() {
     const updatedShoppingLists = [...shoppingLists];
     const listToUpdate = updatedShoppingLists[listIndex];
     const ingredients = JSON.parse(listToUpdate.fields.Ingredients);
-    const ingredientToUpdate = Object.values(ingredients).find(
+    const ingredientIndex = ingredients.findIndex(
       (ingredient) => ingredient.id === ingredientId
     );
 
-    if (ingredientToUpdate) {
-      ingredientToUpdate.purchase = !ingredientToUpdate.purchase;
+    if (ingredientIndex !== -1) {
+      ingredients[ingredientIndex] = {
+        ...ingredients[ingredientIndex],
+        Purchase: !ingredients[ingredientIndex].Purchase,
+      };
+
       const updateUrl = `${url}/${listToUpdate.id}`;
       const updateBody = {
         fields: {
@@ -43,7 +62,7 @@ function ShoppingPage() {
 
       try {
         const response = await fetch(updateUrl, {
-          method: "POST",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer patal8G4fWRJI5KHA.9f4bea36a866e19263c7be335fca931f123405814a20db6836c0f3f5e1c9e6e6`,
@@ -57,9 +76,18 @@ function ShoppingPage() {
         }
 
         const updatedShoppingList = await response.json();
+
         setShoppingLists(
-          shoppingLists.map((list) =>
-            list.id === updatedShoppingList.id ? updatedShoppingList : list
+          updatedShoppingLists.map((list, index) =>
+            index === listIndex
+              ? {
+                  ...list,
+                  fields: {
+                    ...list.fields,
+                    Ingredients: JSON.stringify(ingredients),
+                  },
+                }
+              : list
           )
         );
       } catch (error) {
@@ -76,14 +104,14 @@ function ShoppingPage() {
           <ul>
             {JSON.parse(shoppingList?.fields?.Ingredients)?.map(
               (ingredient, i) => (
-                <li key={shoppingList?.RecipeId}>
+                <li key={`${shoppingList.id}-${ingredient.id}`}>
                   <input
-                    id={`${shoppingList.id}-${ingredient?.id || i}`}
                     type="checkbox"
-                    checked={ingredient?.purchase}
+                    checked={ingredient?.Purchase}
                     onChange={() => handleCheckboxChange(num, ingredient.id)}
+                    id={`${shoppingList.id}-${ingredient.id}-${i}`}
                   />
-                  <label htmlFor={`${shoppingList.id}-${ingredient?.id || i}`}>
+                  <label htmlFor={`${shoppingList.id}-${ingredient.id}-${i}`}>
                     {ingredient?.name}
                   </label>
                 </li>
@@ -95,4 +123,5 @@ function ShoppingPage() {
     </div>
   );
 }
+
 export default ShoppingPage;
