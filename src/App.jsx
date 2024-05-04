@@ -3,12 +3,14 @@ import HomePage from "./pages/HomePage";
 import RecipePage from "./pages/RecipePage";
 import ShoppingPage from "./pages/ShoppingPage";
 import BookmarkPage from "./pages/BookmarkPage";
-import Nav from "./pages/Nav";
+import NavBar from "./pages/NavBar";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
     <>
-      <Nav />
+      <div style={{ backgroundImage: `url(./src/BackgroundImg.jpg)` }} />
+      <NavBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/recipes/:id" element={<RecipePage />} />
