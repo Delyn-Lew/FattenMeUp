@@ -46,11 +46,7 @@ As a user,
 <img src = "ShoppingPage.png" height = "350px">
 </p>
 
-**Bookmark Page**
-
-<p align="center">
-<img src = "NewBookmarkPage.png" height = "350px">
-</p>
+**Shopping List Checked**
 
 <p align="center">
 <img src = "ChecklistShoppingPage.png" height = "350px">
@@ -60,6 +56,13 @@ As a user,
 
 <p align="center">
 <img src = "Airtable.png" height = "350px">
+</p>
+Airtable gets updated from Purchase:false to Purchase:true
+
+**Bookmark Page**
+
+<p align="center">
+<img src = "NewBookmarkPage.png" height = "350px">
 </p>
 
 ## Wireframe
