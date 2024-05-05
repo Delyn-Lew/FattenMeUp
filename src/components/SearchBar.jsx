@@ -66,7 +66,6 @@ function SearchBar() {
         placeholder="Search here"
         onChange={(evt) => setSearchBar(evt.target.value)}
       />
-      {/* anon function takes in no name ()=>{} */}
       <button type="submit" onClick={handleSearch}>
         Search
       </button>

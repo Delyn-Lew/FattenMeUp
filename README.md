@@ -22,16 +22,44 @@ As a user,
 
 ## Screenshots
 
-<p align="center"> Home page
-<img src = "HomePage.png" height = "350px">
+**Home Page**
+
+<p align="center"> 
+<img src = "NewHomePage.png" height = "350px">
 </p>
 
-<p align="center"> Recipe page
-<img src = "RecipePage.png" height = "350px">
+**Search Bar**
+
+<p align="center">
+<img src = "SearchBar.png" height = "350px">
 </p>
 
-<p align="center"> Bookmark page
-<img src = "BookmarkPage.png" height = "350px">
+**Recipe Page**
+
+<p align="center">
+<img src = "NewRecipePage.png" height = "350px">
+</p>
+
+**Shopping Page**
+
+<p align="center">
+<img src = "ShoppingPage.png" height = "350px">
+</p>
+
+**Bookmark Page**
+
+<p align="center">
+<img src = "NewBookmarkPage.png" height = "350px">
+</p>
+
+<p align="center">
+<img src = "ChecklistShoppingPage.png" height = "350px">
+</p>
+
+**AirTable**
+
+<p align="center">
+<img src = "Airtable.png" height = "350px">
 </p>
 
 ## Wireframe
@@ -48,8 +76,8 @@ As a user,
 
 ## Icebox
 
-- Make the checklist working
 - Able to change the serving size and add to shopping list with the exact quantity needed
+- Able to remove the shopping list with a button when user does not need that checklist anymore
 
 ## Challenges
 
